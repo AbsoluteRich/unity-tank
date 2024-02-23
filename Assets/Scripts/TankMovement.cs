@@ -5,10 +5,11 @@ using UnityEngine;
 public class TankMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody m_rigidbody;
-    private float m_MovementInputValue;
-    private float m_TurnInputValue;
+    Rigidbody m_Rigidbody;
+    float m_MovementInputValue;
+    float m_TurnInputValue;
     public float m_Speed = 12f;
+    public float m_TurnSpeed = 180f;
 
     void Awake()
     {
@@ -33,8 +34,7 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void Move()
     {
-        Vector3 potentialVelocity = transform.forward * m_ForwardInputValue;
-
+        Vector3 wantedVelocity = transform.forward * m_MovementInputValue;
         m_Rigidbody.AddForce(wantedVelocity - m_Rigidbody.velocity, ForceMode.VelocityChange);
     }
 
@@ -43,7 +43,7 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void Turn()
     {
-        float turn = m_TurnInputValue * Time.deltaTime;
+        float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
     }
