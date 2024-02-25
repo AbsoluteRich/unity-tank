@@ -34,7 +34,7 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void Move()
     {
-        Vector3 wantedVelocity = transform.forward * m_MovementInputValue;
+        Vector3 wantedVelocity = transform.forward * m_MovementInputValue * m_Speed;
         m_Rigidbody.AddForce(wantedVelocity - m_Rigidbody.velocity, ForceMode.VelocityChange);
     }
 
