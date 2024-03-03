@@ -10,16 +10,20 @@ public class TankMovement : MonoBehaviour
     float m_TurnInputValue;
     public float m_Speed = 12f;
     public float m_TurnSpeed = 180f;
+    public Transform m_TurretAsset;
+    private LayerMask m_LayerMask;
 
     void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        m_LayerMask = LayerMask.GetMask("Ground");
     }
 
     void Update()
     {
         m_MovementInputValue = Input.GetAxis("Vertical");  // Position on the up and down positions
         m_TurnInputValue = Input.GetAxis("Horizontal");  // Position on the left and right positions
+        TurnTurret();
     }
 
     void FixedUpdate()
@@ -46,5 +50,17 @@ public class TankMovement : MonoBehaviour
         float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+    }
+    
+    void TurnTurret()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, m_LayerMask))
+        {
+            m_TurretAsset.LookAt(hit.point);
+            m_TurretAsset.eulerAngles = new Vector3(0, m_TurretAsset.eulerAngles.y, m_TurretAsset.eulerAngles.z);
+        }
     }
 }
