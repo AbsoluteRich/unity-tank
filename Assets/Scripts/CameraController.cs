@@ -5,20 +5,20 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform m_target;
-    private Vector3 m_nextPosition;
-    public float m_MovementDampening;
-    private Vector3 m_MovementVelocity;
+    private Vector3 m_DesiredPosition;
+    public float m_DampTime;
+    private Vector3 m_MoveVelocity;
 
     private void Move()
     {
-        m_nextPosition = m_target.position;
+        m_DesiredPosition = m_target.position;
         Vector3.SmoothDamp(
             transform.position,
-            m_nextPosition,
-            ref m_MovementVelocity,
-            m_MovementDampening
+            m_DesiredPosition,
+            ref m_MoveVelocity,
+            m_DampTime
         );
-        transform.position = m_nextPosition;
+        transform.position = m_DesiredPosition;
     }
 
     void FixedUpdate()

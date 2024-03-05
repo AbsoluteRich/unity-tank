@@ -12,6 +12,7 @@ public class TankMovement : MonoBehaviour
     public float m_TurnSpeed = 180f;
     public Transform m_TurretAsset;
     private LayerMask m_LayerMask;
+    public int scrollSpeed;
 
     void Awake()
     {
@@ -24,6 +25,12 @@ public class TankMovement : MonoBehaviour
         m_MovementInputValue = Input.GetAxis("Vertical");  // Position on the up and down positions
         m_TurnInputValue = Input.GetAxis("Horizontal");  // Position on the left and right positions
         TurnTurret();
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float cameraZoom = scroll * scrollSpeed;
+        if (scroll != 0 && (Camera.main.orthographicSize + cameraZoom > 0))
+        {
+            Camera.main.orthographicSize += cameraZoom;
+        }
     }
 
     void FixedUpdate()
@@ -61,6 +68,7 @@ public class TankMovement : MonoBehaviour
         {
             m_TurretAsset.LookAt(hit.point);
             m_TurretAsset.eulerAngles = new Vector3(0, m_TurretAsset.eulerAngles.y, m_TurretAsset.eulerAngles.z);
+            // Vector3.Distance(-m_TurretAsset.eulerAngles.x, Mathf.Clamp()); Todo
         }
     }
 }
