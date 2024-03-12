@@ -11,6 +11,7 @@ public class EnemyTankMovement : MonoBehaviour
     public float m_CloseDistance = 8f;
     private NavMeshAgent m_NavAgent;
     private Transform m_Target;
+    public Transform m_Turret;
 
     void Awake()
     {
@@ -25,6 +26,7 @@ public class EnemyTankMovement : MonoBehaviour
             return;
         }
         MoveTowards();
+        TurretLook();
     }
 
     void MoveTowards()
@@ -54,6 +56,14 @@ public class EnemyTankMovement : MonoBehaviour
         if (other.tag == "Player")
         {
             m_Follow = false; 
+        }
+    }
+
+    void TurretLook()
+    {
+        if (m_Turret != null)
+        {
+            m_Turret.LookAt(m_Target);
         }
     }
 }
