@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TankShooting : MonoBehaviour
+{
+    public Rigidbody m_ShellPrefab;
+
+    public Transform m_CannonTransform;
+
+    public float m_LaunchForce = 30f;
+
+    void Fire()
+    {
+        Rigidbody shellInstance = Instantiate(m_ShellPrefab, m_CannonTransform.position, m_CannonTransform.rotation);
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Fire();
+    }
+}
