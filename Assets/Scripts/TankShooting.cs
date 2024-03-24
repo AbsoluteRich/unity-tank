@@ -14,7 +14,6 @@ public class TankShooting : MonoBehaviour
         shellInstance.velocity = m_LaunchForce * m_CannonTransform.forward;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonUp("Fire1"))
