@@ -20,6 +20,18 @@ public class TankMovement : MonoBehaviour
         m_LayerMask = LayerMask.GetMask("Ground");
     }
 
+    void OnEnable()
+    {
+        m_Rigidbody.isKinematic = false;
+        m_MovementInputValue = 0f;
+        m_TurnInputValue = 0f;
+    }
+    
+    void OnDisable()
+    {
+        m_Rigidbody.isKinematic = true;
+    }
+
     void Update()
     {
         m_MovementInputValue = Input.GetAxis("Vertical");  // Position on the up and down positions

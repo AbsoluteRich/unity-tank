@@ -12,11 +12,23 @@ public class EnemyTankMovement : MonoBehaviour
     private NavMeshAgent m_NavAgent;
     private Transform m_Target;
     public Transform m_Turret;
+    private Rigidbody m_Rigidbody;
+
+    void OnEnable()
+    {
+        m_Rigidbody.isKinematic = false;
+    }
+    
+    void OnDisable()
+    {
+        m_Rigidbody.isKinematic = true;
+    }
 
     void Awake()
     {
         m_NavAgent = GetComponent<NavMeshAgent>();
         m_Target = GameObject.FindGameObjectWithTag("Player").transform;
+        m_Rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
