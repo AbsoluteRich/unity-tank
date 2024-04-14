@@ -3930,7 +3930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_startingHealth: 30
-  m_ExplosionPrefab: {fileID: 0}
+  m_ExplosionPrefab: {fileID: 19887218, guid: 6ec94bebfeb43a44c9a3811fdf0e916e, type: 3}
 --- !u!1 &1665763093 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: ee109076ebd2b3643aa93293d4deaf7b,
