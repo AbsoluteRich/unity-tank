@@ -18,7 +18,15 @@ public class Shell : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Damage(other);
+        Collider[] objectsInRange = Physics.OverlapSphere(transform.position, m_ExplosionRadius);
+        for (int i = 0; i < objectsInRange.Length; i++)
+        {
+            Rigidbody targetRb = objectsInRange[i].GetComponent<Rigidbody>();
+            if (targetRb != null)
+            {
+                Damage(targetRb);
+            }
+        }
         m_ExplosionParticles.transform.parent = null;  // Detaches the explosion from the shell, which is going to be destroyed
         m_ExplosionParticles.Play();
         
@@ -37,7 +45,7 @@ public class Shell : MonoBehaviour
         }
     }
 
-    float CalculateDamage(Rigidbody targetPosition)
+    float CalculateDamage(Vector3 targetPosition)
     {
         Vector3 explosionToTarget = targetPosition - transform.position;
         float explosionDistance = explosionToTarget.magnitude;
