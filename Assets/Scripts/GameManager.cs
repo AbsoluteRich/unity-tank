@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     
     void Awake()
     {
-        m_GameState = GameStart.Start;
+        m_GameState = GameState.Start;
     }
 
     void SetTanksEnable(bool enabled)
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("We are in the starting game state!");
         if (Input.GetKeyUp(KeyCode.Return) == true)
         {
-            m_GameState = m_GameState.Playing;
+            m_GameState = GameState.Playing;
             SetTanksEnable(true);
         }
     }
@@ -66,5 +66,30 @@ public class GameManager : MonoBehaviour
     void GS_GameOver()
     {
         Debug.Log("We are in the game over game state!");
+    }
+
+    bool OneTankLeft()
+    {
+        int tanksRemaining = 0;
+        for (int i = 0; i < m_Tanks.Length; i++)
+        {
+            if (m_Tanks[i].activeSelf == true)
+            {
+                tanksRemaining++;
+            }
+        }
+        return tanksRemaining <= 1;
+    }
+
+    bool IsPlayerDead()
+    {
+        for (int i = 0; i < m_Tanks.Length; i++)
+        {
+            if (m_Tanks[i].tag == "Player")
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
