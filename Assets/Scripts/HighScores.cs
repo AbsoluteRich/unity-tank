@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class HighScores : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string scoreFile = "scores.txt"
+    private string currentDirectory;
+    int[] scores = new int[10];
+
+    public void LoadFile()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SaveFile()
     {
         
     }
