@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TankHealth : MonoBehaviour
 {
-    public float m_startingHealth = 30f;
+    public float m_StartingHealth = 30f;
     private float m_CurrentHealth;
     private bool m_Dead;
     public ParticleSystem m_ExplosionPrefab;
@@ -18,7 +18,7 @@ public class TankHealth : MonoBehaviour
     
     private void OnEnable()
     {
-        m_CurrentHealth = m_startingHealth;
+        m_CurrentHealth = m_StartingHealth;
         m_Dead = false;
     }
 

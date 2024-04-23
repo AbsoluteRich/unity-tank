@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
         GameOver
     };
     private GameState m_GameState;
+    public int[] bestTimes = new int[10];
     
-    void Awake()
+    private void Awake()
     {
         m_GameState = GameState.Start;
     }
@@ -34,6 +35,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        
         switch (m_GameState)
         {
             case GameState.Start:
@@ -61,11 +67,39 @@ public class GameManager : MonoBehaviour
     void GS_Playing()
     {
         Debug.Log("We are in the playing game state!");
+        bool gameOver = false;
+        m_GameTime += Time.deltaTime;
+
+        if (IsPlayerDead() == true)
+        {
+            gameOver = true;
+            Debug.Log("You lose!");
+        }
+        else if (OneTankLeft() == true)
+        {
+            gameOver = true;
+            Debug.Log("You win!");
+            SetTimes(Mathf.FloorToInt(m_GameTime));
+        }
+
+        if (gameOver == true)
+        {
+            m_GameState = GameState.GameOver;
+        }
     }
 
     void GS_GameOver()
     {
         Debug.Log("We are in the game over game state!");
+        if (Input.GetKeyUp(KeyCode.Return) == true)
+        {
+            m_GameTime = 0;
+            m_GameState = GameState.Playing;
+            
+            SetTanksEnable(false);
+            SetTanksEnable(true);
+
+        }
     }
 
     bool OneTankLeft()
@@ -91,5 +125,25 @@ public class GameManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    void SetTimes(int newTime)
+    {
+        if (newTime <= 0)
+        {
+            return;
+        }
+
+        int tempTime;
+        for (int i = 0; i < bestTimes.Length; i++)
+        {
+            if (bestTimes[i] > newTime || bestTimes[i] == 0)
+            {
+                tempTime = bestTimes[i];
+                bestTimes[i] = newTime;
+                newTime = tempTime;
+            }
+        }
+        Debug.Log($"Time to beat = {bestTimes[0]}");
     }
 }
