@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankHealth : MonoBehaviour
 {
     public float m_StartingHealth = 30f;
-    private float m_CurrentHealth;
+    public float m_CurrentHealth;
     private bool m_Dead;
     public ParticleSystem m_ExplosionPrefab;
     private ParticleSystem m_ExplosionParticles;

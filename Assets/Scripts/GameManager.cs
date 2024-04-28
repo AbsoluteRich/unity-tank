@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +12,7 @@ public class GameManager : MonoBehaviour
     };
     private GameState m_GameState;
     public int[] bestTimes = new int[10];
+    public HighScores m_HighScores;
     
     private void Awake()
     {
@@ -31,6 +30,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetTanksEnable(false);
+        bestTimes = m_HighScores.GetScores();
     }
 
     void Update()
@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
             gameOver = true;
             Debug.Log("You win!");
             SetTimes(Mathf.FloorToInt(m_GameTime));
+            m_HighScores.SetScore(bestTimes);
         }
 
         if (gameOver == true)
