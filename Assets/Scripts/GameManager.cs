@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     private GameState m_GameState;
     public int[] bestTimes = new int[10];
     public HighScores m_HighScores;
+    public Text m_TimeTxt;
     
     private void Awake()
     {
@@ -69,6 +71,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("We are in the playing game state!");
         bool gameOver = false;
         m_GameTime += Time.deltaTime;
+        int minutes = Mathf.FloorToInt(m_GameTime / 60f);
+        int seconds;
 
         if (IsPlayerDead() == true)
         {
