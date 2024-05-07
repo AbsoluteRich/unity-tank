@@ -72,7 +72,8 @@ public class GameManager : MonoBehaviour
         bool gameOver = false;
         m_GameTime += Time.deltaTime;
         int minutes = Mathf.FloorToInt(m_GameTime / 60f);
-        int seconds;
+        int seconds = Mathf.FloorToInt(m_GameTime % 60);
+        m_TimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
 
         if (IsPlayerDead() == true)
         {
@@ -126,10 +127,10 @@ public class GameManager : MonoBehaviour
         {
             if (m_Tanks[i].tag == "Player")
             {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     void SetTimes(int newTime)
