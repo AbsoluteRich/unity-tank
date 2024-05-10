@@ -5666,6 +5666,21 @@ PrefabInstance:
       objectReference: {fileID: 2021799253}
     - target: {fileID: 2707018392181111972, guid: 6fefe448520a8b94fbcc22e1b7cee7f4,
         type: 3}
+      propertyPath: m_MessageTxt
+      value: 
+      objectReference: {fileID: 704445432}
+    - target: {fileID: 2707018392181111972, guid: 6fefe448520a8b94fbcc22e1b7cee7f4,
+        type: 3}
+      propertyPath: m_BestTimeTxt
+      value: 
+      objectReference: {fileID: 978149789}
+    - target: {fileID: 2707018392181111972, guid: 6fefe448520a8b94fbcc22e1b7cee7f4,
+        type: 3}
+      propertyPath: m_EnemyTanksTxt
+      value: 
+      objectReference: {fileID: 1736424467}
+    - target: {fileID: 2707018392181111972, guid: 6fefe448520a8b94fbcc22e1b7cee7f4,
+        type: 3}
       propertyPath: m_Tanks.Array.data[0]
       value: 
       objectReference: {fileID: 1622542980}

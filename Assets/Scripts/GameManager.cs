@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,10 +16,14 @@ public class GameManager : MonoBehaviour
     public int[] bestTimes = new int[10];
     public HighScores m_HighScores;
     public Text m_TimeTxt;
+    public Text m_EnemyTanksTxt;
+    public Text m_BestTimeTxt;
+    public Text m_MessageTxt;    
     
     private void Awake()
     {
         m_GameState = GameState.Start;
+        m_MessageTxt.text = "Press Enter to start...";
     }
 
     void SetTanksEnable(bool enabled)
@@ -33,6 +38,9 @@ public class GameManager : MonoBehaviour
     {
         SetTanksEnable(false);
         bestTimes = m_HighScores.GetScores();
+        int minutes = Mathf.FloorToInt(bestTimes[0] / 60f);
+        int seconds = Mathf.FloorToInt(bestTimes[0] % 60);
+        m_BestTimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 
     void Update()
@@ -62,7 +70,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Return) == true)
         {
             m_GameState = GameState.Playing;
+            m_EnemyTanksTxt.text = (m_Tanks.Length - 1).ToString();  // -1 removes the player tank from the count
             SetTanksEnable(true);
+            m_MessageTxt.text = null;
         }
     }
 
@@ -78,14 +88,17 @@ public class GameManager : MonoBehaviour
         if (IsPlayerDead() == true)
         {
             gameOver = true;
-            Debug.Log("You lose!");
+            m_MessageTxt.text = "You lose!";
         }
         else if (OneTankLeft() == true)
         {
             gameOver = true;
-            Debug.Log("You win!");
+            m_MessageTxt.text = "You win!";
             SetTimes(Mathf.FloorToInt(m_GameTime));
             m_HighScores.SetScore(bestTimes);
+            minutes = Mathf.FloorToInt(m_GameTime / 60f);
+            seconds = Mathf.FloorToInt(m_GameTime % 60);
+            m_BestTimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
         }
 
         if (gameOver == true)
@@ -95,7 +108,7 @@ public class GameManager : MonoBehaviour
     }
 
     void GS_GameOver()
-    {
+    {               
         Debug.Log("We are in the game over game state!");
         if (Input.GetKeyUp(KeyCode.Return) == true)
         {
@@ -118,6 +131,8 @@ public class GameManager : MonoBehaviour
                 tanksRemaining++;
             }
         }
+
+        m_EnemyTanksTxt.text = (tanksRemaining - 1).ToString();
         return tanksRemaining <= 1;
     }
 
