@@ -84,13 +84,9 @@ public class GameManager : MonoBehaviour
         int minutes = Mathf.FloorToInt(m_GameTime / 60f);
         int seconds = Mathf.FloorToInt(m_GameTime % 60);
         m_TimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
-
-        if (IsPlayerDead() == true)
-        {
-            gameOver = true;
-            m_MessageTxt.text = "You lose!";
-        }
-        else if (OneTankLeft() == true)
+        
+        
+        if (OneTankLeft() == true)
         {
             gameOver = true;
             m_MessageTxt.text = "You win!";
@@ -100,7 +96,11 @@ public class GameManager : MonoBehaviour
             seconds = Mathf.FloorToInt(m_GameTime % 60);
             m_BestTimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
         }
-
+        else if (IsPlayerDead() == true)
+        {
+            gameOver = true;
+            m_MessageTxt.text = "You lose!";
+        }
         if (gameOver == true)
         {
             m_GameState = GameState.GameOver;
