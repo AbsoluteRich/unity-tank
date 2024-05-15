@@ -878,6 +878,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 8d373ffe3afb68b4dbf0c75902089d93, type: 2}
+    - target: {fileID: 4242215410996572392, guid: feecca2fa51161141bc166ce5179c323,
+        type: 3}
+      propertyPath: m_ExplosionPrefab
+      value: 
+      objectReference: {fileID: 19887218, guid: 6ec94bebfeb43a44c9a3811fdf0e916e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feecca2fa51161141bc166ce5179c323, type: 3}
 --- !u!1 &216223610
@@ -2113,6 +2119,7 @@ GameObject:
   - component: {fileID: 704445431}
   - component: {fileID: 704445433}
   - component: {fileID: 704445432}
+  - component: {fileID: 704445434}
   m_Layer: 5
   m_Name: txtGameMessage
   m_TagString: Untagged
@@ -2182,6 +2189,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704445430}
   m_CullTransparentMesh: 1
+--- !u!114 &704445434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704445430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -4488,21 +4510,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 41069018}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1622542985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622542980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fea22fd449e19ed4d910494bee4cf389, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StartingHealth: 30
-  m_CurrentHealth: 0
-  m_ExplosionPrefab: {fileID: 19887218, guid: 6ec94bebfeb43a44c9a3811fdf0e916e, type: 3}
 --- !u!1 &1665763093 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: ee109076ebd2b3643aa93293d4deaf7b,

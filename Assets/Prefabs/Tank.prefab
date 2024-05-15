@@ -63,7 +63,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: a1b0d289a593ed14985659f9adc74124, type: 2}
   - {fileID: 2100000, guid: 25864ade49b859a47bb9255f4a519df0, type: 2}
-  - {fileID: 2100000, guid: c4c5f95d06932564c8672b4bafeb1b28, type: 2}
+  - {fileID: 2100000, guid: 8d373ffe3afb68b4dbf0c75902089d93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 3149445355734910292}
   - component: {fileID: 818792223474972821}
   - component: {fileID: 5388464771405527091}
+  - component: {fileID: 762106557973462718}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Player
@@ -182,6 +183,21 @@ MonoBehaviour:
     type: 3}
   m_CannonTransform: {fileID: 5388464771878054222}
   m_LaunchForce: 30
+--- !u!114 &762106557973462718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388464771405527103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea22fd449e19ed4d910494bee4cf389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StartingHealth: 30
+  m_CurrentHealth: 0
+  m_ExplosionPrefab: {fileID: 19887218, guid: 6ec94bebfeb43a44c9a3811fdf0e916e, type: 3}
 --- !u!1 &5388464771878054223
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +292,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a1b0d289a593ed14985659f9adc74124, type: 2}
-  - {fileID: 2100000, guid: c4c5f95d06932564c8672b4bafeb1b28, type: 2}
+  - {fileID: 2100000, guid: 8d373ffe3afb68b4dbf0c75902089d93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -360,7 +376,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a1b0d289a593ed14985659f9adc74124, type: 2}
-  - {fileID: 2100000, guid: c4c5f95d06932564c8672b4bafeb1b28, type: 2}
+  - {fileID: 2100000, guid: 8d373ffe3afb68b4dbf0c75902089d93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -479,7 +495,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a1b0d289a593ed14985659f9adc74124, type: 2}
-  - {fileID: 2100000, guid: c4c5f95d06932564c8672b4bafeb1b28, type: 2}
+  - {fileID: 2100000, guid: 8d373ffe3afb68b4dbf0c75902089d93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
