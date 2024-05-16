@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,20 +19,15 @@ public class GameManager : MonoBehaviour
     public Text m_TimeTxt;
     public Text m_EnemyTanksTxt;
     public Text m_BestTimeTxt;
-    public Text m_MessageTxt;    
+    public Text m_MessageTxt;
+    public GameObject m_PauseMenu;
+    public static bool m_isPaused;
     
     private void Awake()
     {
         m_GameState = GameState.Start;
         m_MessageTxt.text = "Press Enter to start...";
-    }
-
-    void SetTanksEnable(bool enabled)
-    {
-        for (int i = 0; i < m_Tanks.Length; i++)
-        {
-            m_Tanks[i].SetActive(enabled);
-        }
+        m_isPaused = false;
     }
     
     void Start()
@@ -47,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            Application.Quit();
+            PauseGame(!m_isPaused);
         }
         
         switch (m_GameState)
@@ -61,6 +57,33 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 GS_GameOver();
                 break;
+        }
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void PauseGame(bool pausing)
+    {
+        m_isPaused = pausing;
+        m_PauseMenu.SetActive(pausing);
+        if (pausing == true)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+    
+    void SetTanksEnable(bool enabled)
+    {
+        for (int i = 0; i < m_Tanks.Length; i++)
+        {
+            m_Tanks[i].SetActive(enabled);
         }
     }
 

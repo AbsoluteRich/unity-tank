@@ -2,7 +2,6 @@
 
 public class TankMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
     Rigidbody m_Rigidbody;
     float m_MovementInputValue;
     float m_TurnInputValue;
@@ -32,6 +31,10 @@ public class TankMovement : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.m_isPaused)
+        {
+            return;
+        }
         m_MovementInputValue = Input.GetAxis("Vertical");  // Position on the up and down positions
         m_TurnInputValue = Input.GetAxis("Horizontal");  // Position on the left and right positions
         TurnTurret();

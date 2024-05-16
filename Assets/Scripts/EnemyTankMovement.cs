@@ -36,6 +36,22 @@ public class EnemyTankMovement : MonoBehaviour
         MoveTowards();
         TurretLook();
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            m_Follow = true;
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            m_Follow = false; 
+        }
+    }
 
     void MoveTowards()
     {
@@ -48,22 +64,6 @@ public class EnemyTankMovement : MonoBehaviour
         else
         {
             m_NavAgent.isStopped = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            m_Follow = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            m_Follow = false; 
         }
     }
 

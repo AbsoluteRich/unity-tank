@@ -6,7 +6,12 @@ public class CameraController : MonoBehaviour
     private Vector3 m_DesiredPosition;
     public float m_DampTime;
     private Vector3 m_MoveVelocity;
-
+    
+    void FixedUpdate()
+    {
+        Move();
+    }
+    
     private void Move()
     {
         m_DesiredPosition = m_Target.position;
@@ -17,10 +22,5 @@ public class CameraController : MonoBehaviour
             m_DampTime
         );
         transform.position = m_DesiredPosition;
-    }
-
-    void FixedUpdate()
-    {
-        Move();
     }
 }
