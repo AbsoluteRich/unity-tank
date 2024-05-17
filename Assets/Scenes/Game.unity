@@ -2119,6 +2119,7 @@ MonoBehaviour:
   m_ShootDelay: 1
   m_ShellFiredSfx: {fileID: 8300000, guid: 178721c7f21a326488f146c328efbf30, type: 3}
   m_AudioSource: {fileID: 928260532}
+  m_ExplosionSfx: {fileID: 8300000, guid: 1120efb65740b3041967f398bfd6aa11, type: 3}
 --- !u!1 &644683036
 GameObject:
   m_ObjectHideFlags: 0
