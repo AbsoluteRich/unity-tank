@@ -7,6 +7,7 @@ public class TankShooting : MonoBehaviour
     public float m_LaunchForce = 30f;
     public AudioClip m_ShellFiredSfx;
     public GameObject m_AudioSource;
+    public AudioClip m_ExplosionSfx;
     
     void Update()
     {
@@ -14,6 +15,7 @@ public class TankShooting : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(m_ShellFiredSfx, m_AudioSource.transform.position);
             Fire();
+            AudioSource.PlayClipAtPoint(m_ExplosionSfx, m_AudioSource.transform.position);
         }
     }
     

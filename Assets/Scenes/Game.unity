@@ -301,6 +301,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 8d373ffe3afb68b4dbf0c75902089d93, type: 2}
+    - target: {fileID: 5388464771405527091, guid: fa0cb8d240328184594775ffb2064c0a,
+        type: 3}
+      propertyPath: m_AudioSource
+      value: 
+      objectReference: {fileID: 928260532}
+    - target: {fileID: 5388464771405527091, guid: fa0cb8d240328184594775ffb2064c0a,
+        type: 3}
+      propertyPath: m_ExplosionSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 1120efb65740b3041967f398bfd6aa11, type: 3}
     - target: {fileID: 5388464771655480741, guid: fa0cb8d240328184594775ffb2064c0a,
         type: 3}
       propertyPath: m_RootOrder
@@ -2107,6 +2117,8 @@ MonoBehaviour:
   m_CannonTransform: {fileID: 644683037}
   m_LaunchForce: 30
   m_ShootDelay: 1
+  m_ShellFiredSfx: {fileID: 8300000, guid: 178721c7f21a326488f146c328efbf30, type: 3}
+  m_AudioSource: {fileID: 928260532}
 --- !u!1 &644683036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,6 +2985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 928260534}
   - component: {fileID: 928260533}
+  - component: {fileID: 928260535}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -3010,6 +3023,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 40, y: 60, z: 0}
+--- !u!81 &928260535
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928260532}
+  m_Enabled: 1
 --- !u!1001 &943181394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3077,7 +3098,6 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3085,14 +3105,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0

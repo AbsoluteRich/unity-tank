@@ -35,6 +35,25 @@ public class GameManager : MonoBehaviour
         m_AudioSource.Play();
     }
     
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void PauseGame(bool pausing)
+    {
+        m_isPaused = pausing;
+        m_PauseMenu.SetActive(pausing);
+        if (pausing == true)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+    
     void Start()
     {
         SetTanksEnable(false);
@@ -62,25 +81,6 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 GS_GameOver();
                 break;
-        }
-    }
-
-    public void LoadMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void PauseGame(bool pausing)
-    {
-        m_isPaused = pausing;
-        m_PauseMenu.SetActive(pausing);
-        if (pausing == true)
-        {
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
         }
     }
     

@@ -12,3 +12,6 @@ The volume was decreased by -5.0 dBs and some silence at the end of the file was
 
 Steampunk Crossbow Shot 1 by qubodup -- https://freesound.org/s/219457/ -- License: Attribution 4.0
 The file was converted into an MP3, had a fade out applied, and silence at the end of the file was trimmed.
+
+Explosion_003.mp3 by cydon -- https://freesound.org/s/268555/ -- License: Attribution NonCommercial 4.0
+The volume was increased by 3 dBs and the loudness was normalised to -23.0 LUFS.
