@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Text m_MessageTxt;
     public GameObject m_PauseMenu;
     public static bool m_isPaused;
+    AudioSource m_AudioSource;
+    public AudioClip m_PlayingMusic;
     
     private void Awake()
     {
@@ -90,6 +92,10 @@ public class GameManager : MonoBehaviour
     void GS_Start()
     {
         Debug.Log("We are in the starting game state!");
+        
+        m_AudioSource.clip = m_PlayingMusic;
+        m_AudioSource.Play();
+        
         if (Input.GetKeyUp(KeyCode.Return) == true)
         {
             m_GameState = GameState.Playing;
@@ -107,7 +113,6 @@ public class GameManager : MonoBehaviour
         int minutes = Mathf.FloorToInt(m_GameTime / 60f);
         int seconds = Mathf.FloorToInt(m_GameTime % 60);
         m_TimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
-        
         
         if (OneTankLeft() == true)
         {

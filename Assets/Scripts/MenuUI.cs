@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,19 @@ public class MenuUI : MonoBehaviour
     public Text m_HighScoreMsg;
     public HighScores m_HighScores;
     int[] m_Scores;
+    AudioSource m_AudioSource;
+    public AudioClip m_StartMusic;
 
     private void Start()
     {
         DisplayHighScores();
+    }
+
+    private void Awake()
+    {
+        m_AudioSource = GetComponent<AudioSource>();
+        m_AudioSource.clip = m_StartMusic;
+        m_AudioSource.Play();
     }
     
     public void LoadScene(string sceneName)
