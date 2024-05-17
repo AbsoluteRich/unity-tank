@@ -2,6 +2,7 @@ scores.txt
 scores.txt.meta
 *.user
 /[Aa]ssets/TextMesh Pro/
+*Thumbs.db*
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
