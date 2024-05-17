@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
         m_GameState = GameState.Start;
         m_MessageTxt.text = "Press Enter to start...";
         m_isPaused = false;
+        m_AudioSource = GetComponent<AudioSource>();
+        m_AudioSource.clip = m_PlayingMusic;
+        m_AudioSource.Play();
     }
     
     void Start()
@@ -92,9 +95,6 @@ public class GameManager : MonoBehaviour
     void GS_Start()
     {
         Debug.Log("We are in the starting game state!");
-        
-        m_AudioSource.clip = m_PlayingMusic;
-        m_AudioSource.Play();
         
         if (Input.GetKeyUp(KeyCode.Return) == true)
         {

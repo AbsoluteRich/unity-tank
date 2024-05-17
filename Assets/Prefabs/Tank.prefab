@@ -183,6 +183,7 @@ MonoBehaviour:
     type: 3}
   m_CannonTransform: {fileID: 5388464771878054222}
   m_LaunchForce: 30
+  m_ShellFiredSfx: {fileID: 8300000, guid: 178721c7f21a326488f146c328efbf30, type: 3}
 --- !u!114 &762106557973462718
 MonoBehaviour:
   m_ObjectHideFlags: 0

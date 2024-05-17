@@ -5,7 +5,6 @@ public class Shell : MonoBehaviour
     public float m_MaxLifeTime = 2f;
     public ParticleSystem m_ExplosionParticles;
     public float m_MaxDamage = 34f;
-    
     public float m_ExplosionRadius = 5;
     public float m_ExplosionForce = 100f;
     

@@ -3,7 +3,12 @@ Doomsday war style game background from https://pngtree.com/freebackground/dooms
 "Leaving Home" Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 4.0 License
 http://creativecommons.org/licenses/by/4.0/
+The volume was decreased by -5.0 dBs.
 
 "Voxel Revolution" Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 4.0 License
 http://creativecommons.org/licenses/by/4.0/
+The volume was decreased by -5.0 dBs and some silence at the end of the file was trimmed.
+
+Steampunk Crossbow Shot 1 by qubodup -- https://freesound.org/s/219457/ -- License: Attribution 4.0
+The file was converted into an MP3, had a fade out applied, and silence at the end of the file was trimmed.

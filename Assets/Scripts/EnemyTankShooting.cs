@@ -12,7 +12,9 @@ public class EnemyTankShooting : MonoBehaviour
     private bool m_CanShoot;
     public float m_ShootDelay = 1f;
     private float m_ShootTimer;
-
+    public AudioClip m_ShellFiredSfx;
+    public GameObject m_AudioSource;
+    
     void Update()
     {
         if (m_CanShoot == true)
@@ -21,6 +23,7 @@ public class EnemyTankShooting : MonoBehaviour
             if (m_ShootTimer <= 0)
             {
                 m_ShootTimer = m_ShootDelay;
+                AudioSource.PlayClipAtPoint(m_ShellFiredSfx, m_AudioSource.transform.position);
                 Fire();
             }
         }

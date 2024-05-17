@@ -131,6 +131,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxLifeTime: 2
   m_ExplosionParticles: {fileID: 7317988290646295239}
+  m_MaxDamage: 34
+  m_ExplosionRadius: 5
+  m_ExplosionForce: 100
+  m_ExplosionAudio: {fileID: 8300000, guid: 178721c7f21a326488f146c328efbf30, type: 3}
 --- !u!1001 &7317988290661955253
 PrefabInstance:
   m_ObjectHideFlags: 0
