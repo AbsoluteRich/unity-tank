@@ -167,12 +167,13 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < m_Tanks.Length; i++)
         {
-            if (m_Tanks[i].tag == "Player")
+            if (m_Tanks[i].activeSelf == false)
             {
-                return false;
+                if (m_Tanks[i].tag == "Player")
+                    return true;
             }
         }
-        return true;
+        return false;
     }
 
     void SetTimes(int newTime)
