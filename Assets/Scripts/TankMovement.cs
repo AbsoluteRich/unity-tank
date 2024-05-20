@@ -10,13 +10,19 @@ public class TankMovement : MonoBehaviour
     public Transform m_TurretAsset;
     private LayerMask m_LayerMask;
     public int scrollSpeed;
-
+    
+    /// <summary>
+    /// Initialises variables to components found on the object/in the scene.
+    /// </summary>
     void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         m_LayerMask = LayerMask.GetMask("Ground");
     }
-
+    
+    /// <summary>
+    /// Disables physics and resets all movement values.
+    /// </summary>
     void OnEnable()
     {
         m_Rigidbody.isKinematic = false;
@@ -24,11 +30,19 @@ public class TankMovement : MonoBehaviour
         m_TurnInputValue = 0f;
     }
     
+    /// <summary>
+    /// Enables physics.
+    /// </summary>
     void OnDisable()
     {
         m_Rigidbody.isKinematic = true;
     }
-
+    
+    /// <summary>
+    /// Moves the tank when the player presses W and S or the up and down arrows.
+    /// Rotates the tank treads when the player pressed A and D or the left and right arrows.
+    /// Changes the zoom of the camera when the player scrolls their mouse wneel.
+    /// </summary>
     void Update()
     {
         if (GameManager.m_isPaused)
@@ -46,6 +60,9 @@ public class TankMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves the tank and its turret every frame.
+    /// </summary>
     void FixedUpdate()
     {
         Move();
@@ -53,8 +70,7 @@ public class TankMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Applies velocity on the tank's Vector.
-    /// Todo: Write a proper comment
+    /// Applies velocity on the tank's Vector, moving it in a direction.
     /// </summary>
     void Move()
     {
@@ -63,7 +79,7 @@ public class TankMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Todo: Comment this
+    /// Rotates the tank treads.
     /// </summary>
     void Turn()
     {
@@ -72,6 +88,9 @@ public class TankMovement : MonoBehaviour
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
     }
     
+    /// <summary>
+    /// Rotates the tank turret according to where the mouse cursor is.
+    /// </summary>
     void TurnTurret()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -81,7 +100,6 @@ public class TankMovement : MonoBehaviour
         {
             m_TurretAsset.LookAt(hit.point);
             m_TurretAsset.eulerAngles = new Vector3(0, m_TurretAsset.eulerAngles.y, m_TurretAsset.eulerAngles.z);
-            // Vector3.Distance(-m_TurretAsset.eulerAngles.x, Mathf.Clamp()); Todo
         }
     }
 }

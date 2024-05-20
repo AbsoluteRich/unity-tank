@@ -2,19 +2,24 @@
 
 public class CameraController : MonoBehaviour
 {
-    public Transform m_Target;  // The target the camera will follow
-    private Vector3 m_DesiredPosition;  // The position the camera is trying to reach
-    public float m_DampTime;  // The time to takes for the camera to reach the desired position
-    private Vector3 m_MoveVelocity;  // The camera's current velocity
+    public Transform m_Target;
+    private Vector3 m_DesiredPosition;
+    public float m_DampTime;
+    private Vector3 m_MoveVelocity;
     
+    /// <summary>
+    /// Moves the camera every frame.
+    /// </summary>
     void FixedUpdate()
     {
         Move();
     }
     
+    /// <summary>
+    /// Smoothly moves the camera from its current position to the desired position.
+    /// </summary>
     private void Move()
     {
-        // Smoothly moves the camera from its current position to the desired position
         m_DesiredPosition = m_Target.position;
         Vector3.SmoothDamp(
             transform.position,

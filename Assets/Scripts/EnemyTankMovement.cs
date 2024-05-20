@@ -3,66 +3,83 @@ using UnityEngine.AI;
 
 public class EnemyTankMovement : MonoBehaviour
 {
-    private bool m_Follow;  // Whether the enemy tank should follow the player
-    public float m_CloseDistance = 8f;  // The minimum distance from the tank to the player before stopping movement
-    private NavMeshAgent m_NavAgent;  // Reference to the tank's NavMeshAgent, an AI navigator
-    private Transform m_Target;  // Reference to the tank's transform
-    public Transform m_Turret;  // Reference to the tank turret's transform
-    private Rigidbody m_Rigidbody;  // Reference to the tank's Rigidbody
-
+    private bool m_Follow;
+    public float m_CloseDistance = 8f;
+    private NavMeshAgent m_NavAgent;
+    private Transform m_Target;
+    public Transform m_Turret;
+    private Rigidbody m_Rigidbody;
+    
+    /// <summary>
+    /// Enables physics.
+    /// </summary>
     void OnEnable()
     {
-        m_Rigidbody.isKinematic = false;  // Enables physics
+        m_Rigidbody.isKinematic = false;
     }
     
+    /// <summary>
+    /// Disables physics.
+    /// </summary>
     void OnDisable()
     {
-        m_Rigidbody.isKinematic = true;  // Disables physics
+        m_Rigidbody.isKinematic = true;
     }
-
+    
+    /// <summary>
+    /// Initialises variables to components found on the object/in the scene.
+    /// </summary>
     void Awake()
     {
-        // Sets the reference variables to components found on the object
         m_NavAgent = GetComponent<NavMeshAgent>();
         m_Target = GameObject.FindGameObjectWithTag("Player").transform;
         m_Rigidbody = GetComponent<Rigidbody>();
     }
-
+    
+    /// <summary>
+    /// Moves the tank towards the player and rotates turret, if the tank should be following the player.
+    /// </summary>
     void Update()
     {
-        // If the tank shouldn't follow the player, don't update movement or turret rotation
         if (m_Follow == false)
         {
             return;
         }
-        MoveTowards();  // Move towards player
-        TurretLook();  // Turn turret towards player
+        MoveTowards();
+        TurretLook();
     }
     
+    /// <summary>
+    /// Follows the player if the enemy tank's collider (detection radius) intersects with them.
+    /// </summary>
+    /// <param name="other">The collider that enters the enemy tank's detection radius.</param>
     private void OnTriggerEnter(Collider other)
     {
-        // If the tank's collider (detection radius) intersects with the player, follow it...
         if (other.tag == "Player")
         {
             m_Follow = true;
         }
     }
     
+    /// <summary>
+    /// Stop following the player if the player leaves the enemy tank collider (detection radius).
+    /// </summary>
+    /// <param name="other">The collider that enters the enemy tank's detection radius.</param>
     private void OnTriggerExit(Collider other)
     {
-        // ...otherwise, if the player leaves the tank collider, stop following them
         if (other.tag == "Player")
         {
             m_Follow = false; 
         }
     }
-
+    
+    /// <summary>
+    /// Calculates the distance to the player, and if the player is further than the minimum distance, move towards them.
+    /// </summary>
     void MoveTowards()
     {
-        // Calculates the distance to the player
         float distance = (m_Target.position - transform.position).magnitude;
         
-        // If the player is further than the minimum distance, move towards them
         if (distance > m_CloseDistance)
         {
             m_NavAgent.SetDestination(m_Target.position);
@@ -73,10 +90,12 @@ public class EnemyTankMovement : MonoBehaviour
             m_NavAgent.isStopped = true;
         }
     }
-
+    
+    /// <summary>
+    /// Rotates the tank turret to look at the player.
+    /// </summary>
     void TurretLook()
     {
-        // Rotates the tank turret to look at the player
         if (m_Turret != null)
         {
             m_Turret.LookAt(m_Target);

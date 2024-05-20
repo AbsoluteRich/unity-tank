@@ -2,24 +2,25 @@ using UnityEngine;
 
 public class EnemyTankShooting : MonoBehaviour
 {
-    public Rigidbody m_ShellPrefab;  // Reference to a prefab of a tank shell
-    public Transform m_CannonTransform;  // Reference to the tank turret's position and rotation
-    public float m_LaunchForce = 30f;  // Force at which the shell will be launched
+    public Rigidbody m_ShellPrefab;
+    public Transform m_CannonTransform;
+    public float m_LaunchForce = 30f;
     private bool m_CanShoot;
-    public float m_ShootDelay = 1f;  // Delay between each shot
-    private float m_ShootTimer;  // Timer for the shooting delay
-    public AudioClip m_ShellFiredSfx;  // Sound effect to be played when a shell is shot
-    public GameObject m_AudioSource;  // Reference to the GameObject where sounds will be played
-    public AudioClip m_ExplosionSfx;  // Sound effect to be played when a shell explodes
+    public float m_ShootDelay = 1f;
+    private float m_ShootTimer;
+    public AudioClip m_ShellFiredSfx;
+    public GameObject m_AudioSource;
+    public AudioClip m_ExplosionSfx;
     
+    /// <summary>
+    /// Decreases the shooting cooldown by the time passed since the last frame. If the timer is less than 0, the enemy tank shoots.
+    /// </summary>
     void Update()
     {
         if (m_CanShoot == true)
         {
-            // Decreases the shoot timer by the time passed since the last frame
             m_ShootTimer -= Time.deltaTime;
             
-            // If the timer is less than 0, the tank is able to shoot
             if (m_ShootTimer <= 0)
             {
                 m_ShootTimer = m_ShootDelay;
@@ -29,33 +30,42 @@ public class EnemyTankShooting : MonoBehaviour
             }
         }
     }
-
+    
+    /// <summary>
+    /// Creates a new shell at the tank's turret and sets its velocity, sending it forward.
+    /// </summary>
     void Fire()
     {
-        // Creates a new shell at the turret
         Rigidbody shellInstance = Instantiate(m_ShellPrefab, m_CannonTransform.position, m_CannonTransform.rotation);
-        
-        // Sets the velocity of the shell, sending it forward
         shellInstance.velocity = m_LaunchForce * m_CannonTransform.forward;
     }
     
+    /// <summary>
+    /// Prevents the tank from shooting when the game starts.
+    /// </summary>
     private void Awake()
     {
         m_CanShoot = false;
     }
-
+    
+    /// <summary>
+    /// Lets the tank shoot if the player enters its detection radius.
+    /// </summary>
+    /// <param name="other">The collider that enters the enemy tank's detection radius.</param>
     private void OnTriggerEnter(Collider other)
     {
-        // Lets the tank shoot if the player enters its detection radius...
         if (other.CompareTag("Player"))
         {
             m_CanShoot = true;
         }
     }
     
+    /// <summary>
+    /// Deny the enemy tank the ability to shoot if the player isn't in its collider.
+    /// </summary>
+    /// <param name="other">The collider that enters the enemy tank's detection radius.</param>
     private void OnTriggerExit(Collider other)
     {
-        // ...otherwise, if the player isn't in its collider, it cannot shoot
         if (other.CompareTag("Player"))
         {
             m_CanShoot = false;

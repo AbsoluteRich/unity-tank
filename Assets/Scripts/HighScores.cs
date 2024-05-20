@@ -6,17 +6,21 @@ public class HighScores : MonoBehaviour
     public string scoreFile = "scores.txt";  // The filename where high scores will be stored
     string currentDirectory;  // The path to the directory containing the high score file
     int[] scores = new int[10];  // Stores the loaded high scores
-
+    
+    /// <summary>
+    /// Initialises the high score file directory to dataPath.
+    /// (dataPath is the project's assets folder. When built, dataPath becomes the Data folder inside the program directory.)
+    /// </summary>
     private void Awake()
     {
-        // dataPath is the project's assets folder
-        // When built, dataPath becomes the Data folder inside the program directory
         currentDirectory = Application.dataPath;
     }
-
+    
+    /// <summary>
+    /// Loads scores from the high score file, adding them to the high score array.
+    /// </summary>
     public void LoadFile()
     {
-        // Loads high scores
         bool fileExists = File.Exists(currentDirectory + "\\" + scoreFile);
         
         if (fileExists)
@@ -38,7 +42,7 @@ public class HighScores : MonoBehaviour
 
                 if (didParse)
                 {
-                    // If the stored score was sucessfully converted, add it to the array...
+                    // If the stored score was successfully converted, add it to the array...
                     scores[scoreCount] = readScore;
                 }
                 else
@@ -50,8 +54,7 @@ public class HighScores : MonoBehaviour
 
                 scoreCount++;
             }
-            
-            // Closes the file
+
             fileReader.Close();
         }
         else
@@ -59,29 +62,37 @@ public class HighScores : MonoBehaviour
             Debug.Log($"'{scoreFile}' not found! No scores loaded");
         }
     }
-
+    
+    /// <summary>
+    /// Writes the contents of the high score array to the high score file.
+    /// </summary>
     public void SaveFile()
     {
-        // Opens the file for writing
         StreamWriter fileWriter = new StreamWriter(currentDirectory + "\\" + scoreFile);
-        
-        // Iterates through the scores array, writing each high score
+
         for (int i = 0; i < scores.Length; i++)
         {
             fileWriter.WriteLine(scores[i]);
         }
-        
-        // Closes the file
+
         fileWriter.Close();
         Debug.Log("Wrote to file");
     }
-
+    
+    /// <summary>
+    /// Sets the high score array to the given scores and writes it to the high score file.
+    /// </summary>
+    /// <param name="newScores">An array of scores.</param>
     public void SetScore(int[] newScores)
     {
         scores = newScores;
         SaveFile();
     }
-
+    
+    /// <summary>
+    /// Reads the high scores from the save file.
+    /// </summary>
+    /// <returns>An array of scores.</returns>
     public int[] GetScores()
     {
         LoadFile();
