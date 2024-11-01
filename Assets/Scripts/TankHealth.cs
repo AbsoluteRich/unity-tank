@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class TankHealth : MonoBehaviour
 {
-    public float m_StartingHealth = 30f;
-    public float m_CurrentHealth;
-    private bool m_Dead;
-    public ParticleSystem m_ExplosionPrefab;
-    private ParticleSystem m_ExplosionParticles;
+    public float mStartingHealth = 30f;
+    public float mCurrentHealth;
+    private bool _mDead;
+    public ParticleSystem mExplosionPrefab;
+    private ParticleSystem _mExplosionParticles;
     
     /// <summary>
     /// Initialises variables to components found on the object/in the scene.
     /// </summary>
     private void Awake()
     {
-        m_ExplosionParticles = Instantiate(m_ExplosionPrefab);
-        m_ExplosionParticles.gameObject.SetActive(false);
+        _mExplosionParticles = Instantiate(mExplosionPrefab);
+        _mExplosionParticles.gameObject.SetActive(false);
     }
     
     /// <summary>
@@ -22,8 +22,8 @@ public class TankHealth : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        m_CurrentHealth = m_StartingHealth;
-        m_Dead = false;
+        mCurrentHealth = mStartingHealth;
+        _mDead = false;
     }
     
     /// <summary>
@@ -32,9 +32,9 @@ public class TankHealth : MonoBehaviour
     /// <param name="amount">The amount of health to take away.</param>
     public void TakeDamage(float amount)
     {
-        m_CurrentHealth -= amount;
+        mCurrentHealth -= amount;
 
-        if (m_CurrentHealth <= 0 && m_Dead == false)
+        if (mCurrentHealth <= 0 && _mDead == false)
         {
             OnDeath();
         }
@@ -45,11 +45,11 @@ public class TankHealth : MonoBehaviour
     /// </summary>
     void OnDeath()
     {
-        m_Dead = true;
+        _mDead = true;
 
-        m_ExplosionParticles.transform.position = transform.position;
-        m_ExplosionParticles.gameObject.SetActive(true);
-        m_ExplosionParticles.Play();
+        _mExplosionParticles.transform.position = transform.position;
+        _mExplosionParticles.gameObject.SetActive(true);
+        _mExplosionParticles.Play();
         
         gameObject.SetActive(false);
     }

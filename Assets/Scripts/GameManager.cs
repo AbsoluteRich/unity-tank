@@ -4,37 +4,38 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] m_Tanks;
-    private float m_GameTime = 0;
-    public enum GameState
+    public GameObject[] mTanks;
+    private float _mGameTime;
+
+    private enum GameState
     {
         Start,
         Playing,
         GameOver
     };
-    private GameState m_GameState;
+    private GameState _mGameState;
     public int[] bestTimes = new int[10];
-    public HighScores m_HighScores;
-    public Text m_TimeTxt;
-    public Text m_EnemyTanksTxt;
-    public Text m_BestTimeTxt;
-    public Text m_MessageTxt;
-    public GameObject m_PauseMenu;
-    public static bool m_isPaused;
-    AudioSource m_AudioSource;
-    public AudioClip m_PlayingMusic;
+    public HighScores mHighScores;
+    public Text mTimeTxt;
+    public Text mEnemyTanksTxt;
+    public Text mBestTimeTxt;
+    public Text mMessageTxt;
+    public GameObject mPauseMenu;
+    public static bool MIsPaused;
+    AudioSource _mAudioSource;
+    public AudioClip mPlayingMusic;
     
     /// <summary>
     /// Sets the initial game state and starts music.
     /// </summary>
     private void Awake()
     {
-        m_GameState = GameState.Start;
-        m_MessageTxt.text = "Press Enter to start...";
-        m_isPaused = false;
-        m_AudioSource = GetComponent<AudioSource>();
-        m_AudioSource.clip = m_PlayingMusic;
-        m_AudioSource.Play();
+        _mGameState = GameState.Start;
+        mMessageTxt.text = "Press Enter to start...";
+        MIsPaused = false;
+        _mAudioSource = GetComponent<AudioSource>();
+        _mAudioSource.clip = mPlayingMusic;
+        _mAudioSource.Play();
     }
     
     /// <summary>
@@ -50,16 +51,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PauseGame(bool pausing)
     {
-        m_isPaused = pausing;
-        m_PauseMenu.SetActive(pausing);
-        if (pausing == true)
-        {
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
+        MIsPaused = pausing;
+        mPauseMenu.SetActive(pausing);
+        Time.timeScale = pausing ? 0f : 1f;
     }
     
     /// <summary>
@@ -68,10 +62,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetTanksEnable(false);
-        bestTimes = m_HighScores.GetScores();
+        bestTimes = mHighScores.GetScores();
         int minutes = Mathf.FloorToInt(bestTimes[0] / 60f);
         int seconds = Mathf.FloorToInt(bestTimes[0] % 60);
-        m_BestTimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+        mBestTimeTxt.text = $"{minutes:0}:{seconds:00}";
     }
     
     /// <summary>
@@ -81,10 +75,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            PauseGame(!m_isPaused);
+            PauseGame(!MIsPaused);
         }
         
-        switch (m_GameState)
+        switch (_mGameState)
         {
             case GameState.Start:
                 GS_Start();
@@ -101,11 +95,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Enables/disables all tanks.
     /// </summary>
-    void SetTanksEnable(bool enabled)
+    void SetTanksEnable(bool isEnabled)
     {
-        for (int i = 0; i < m_Tanks.Length; i++)
+        foreach (var t in mTanks)
         {
-            m_Tanks[i].SetActive(enabled);
+            t.SetActive(isEnabled);
         }
     }
     
@@ -116,12 +110,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("We are in the starting game state!");
         
-        if (Input.GetKeyUp(KeyCode.Return) == true)
+        if (Input.GetKeyUp(KeyCode.Return))
         {
-            m_GameState = GameState.Playing;
-            m_EnemyTanksTxt.text = (m_Tanks.Length - 1).ToString();  // -1 removes the player tank from the count
+            _mGameState = GameState.Playing;
+            mEnemyTanksTxt.text = (mTanks.Length - 1).ToString();  // -1 removes the player tank from the count
             SetTanksEnable(true);
-            m_MessageTxt.text = null;
+            mMessageTxt.text = null;
         }
     }
     
@@ -132,31 +126,31 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("We are in the playing game state!");
         bool gameOver = false;
-        m_GameTime += Time.deltaTime;
-        int minutes = Mathf.FloorToInt(m_GameTime / 60f);
-        int seconds = Mathf.FloorToInt(m_GameTime % 60);
-        m_TimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+        _mGameTime += Time.deltaTime;
+        int minutes = Mathf.FloorToInt(_mGameTime / 60f);
+        int seconds = Mathf.FloorToInt(_mGameTime % 60);
+        mTimeTxt.text = $"{minutes:0}:{seconds:00}";
 
 
-        if (IsPlayerDead() == true)
+        if (IsPlayerDead())
         {
             gameOver = true;
-            m_MessageTxt.text = "You lose!";
+            mMessageTxt.text = "You lose!";
         }
-        else if (OneTankLeft() == true)
+        else if (OneTankLeft())
         {
             gameOver = true;
-            m_MessageTxt.text = "You win!";
-            SetTimes(Mathf.FloorToInt(m_GameTime));
-            m_HighScores.SetScore(bestTimes);
-            minutes = Mathf.FloorToInt(m_GameTime / 60f);
-            seconds = Mathf.FloorToInt(m_GameTime % 60);
-            m_BestTimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+            mMessageTxt.text = "You win!";
+            SetTimes(Mathf.FloorToInt(_mGameTime));
+            mHighScores.SetScore(bestTimes);
+            minutes = Mathf.FloorToInt(_mGameTime / 60f);
+            seconds = Mathf.FloorToInt(_mGameTime % 60);
+            mBestTimeTxt.text = $"{minutes:0}:{seconds:00}";
         }
         
-        if (gameOver == true)
+        if (gameOver)
         {
-            m_GameState = GameState.GameOver;
+            _mGameState = GameState.GameOver;
         }
     }
     
@@ -166,10 +160,10 @@ public class GameManager : MonoBehaviour
     void GS_GameOver()
     {               
         Debug.Log("We are in the game over game state!");
-        if (Input.GetKeyUp(KeyCode.Return) == true)
+        if (Input.GetKeyUp(KeyCode.Return))
         {
-            m_GameTime = 0;
-            m_GameState = GameState.Playing;
+            _mGameTime = 0;
+            _mGameState = GameState.Playing;
             
             SetTanksEnable(false);
             SetTanksEnable(true);
@@ -184,15 +178,15 @@ public class GameManager : MonoBehaviour
     bool OneTankLeft()
     {
         int tanksRemaining = 0;
-        for (int i = 0; i < m_Tanks.Length; i++)
+        foreach (var t in mTanks)
         {
-            if (m_Tanks[i].activeSelf == true)
+            if (t.activeSelf)
             {
                 tanksRemaining++;
             }
         }
 
-        m_EnemyTanksTxt.text = (tanksRemaining - 1).ToString();
+        mEnemyTanksTxt.text = (tanksRemaining - 1).ToString();
         return tanksRemaining <= 1;
     }
     
@@ -202,14 +196,15 @@ public class GameManager : MonoBehaviour
     /// <returns><c>true</c> if the player is dead, otherwise <c>false</c>.</returns>
     bool IsPlayerDead()
     {
-        for (int i = 0; i < m_Tanks.Length; i++)
+        foreach (var t in mTanks)
         {
-            if (m_Tanks[i].activeSelf == false)
+            if (t.activeSelf == false)
             {
-                if (m_Tanks[i].tag == "Player")
+                if (t.CompareTag("Player"))
                     return true;
             }
         }
+
         return false;
     }
     
@@ -224,14 +219,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        int tempTime;
         for (int i = 0; i < bestTimes.Length; i++)
         {
             if (bestTimes[i] > newTime || bestTimes[i] == 0)
             {
-                tempTime = bestTimes[i];
-                bestTimes[i] = newTime;
-                newTime = tempTime;
+                (bestTimes[i], newTime) = (newTime, bestTimes[i]);
             }
         }
         Debug.Log($"Time to beat = {bestTimes[0]}");

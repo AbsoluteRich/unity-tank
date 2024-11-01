@@ -3,19 +3,19 @@ using UnityEngine.AI;
 
 public class EnemyTankMovement : MonoBehaviour
 {
-    private bool m_Follow;
-    public float m_CloseDistance = 8f;
-    private NavMeshAgent m_NavAgent;
-    private Transform m_Target;
-    public Transform m_Turret;
-    private Rigidbody m_Rigidbody;
+    private bool _mFollow;
+    public float mCloseDistance = 8f;
+    private NavMeshAgent _mNavAgent;
+    private Transform _mTarget;
+    public Transform mTurret;
+    private Rigidbody _mRigidbody;
     
     /// <summary>
     /// Enables physics.
     /// </summary>
     void OnEnable()
     {
-        m_Rigidbody.isKinematic = false;
+        _mRigidbody.isKinematic = false;
     }
     
     /// <summary>
@@ -23,7 +23,7 @@ public class EnemyTankMovement : MonoBehaviour
     /// </summary>
     void OnDisable()
     {
-        m_Rigidbody.isKinematic = true;
+        _mRigidbody.isKinematic = true;
     }
     
     /// <summary>
@@ -31,9 +31,9 @@ public class EnemyTankMovement : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        m_NavAgent = GetComponent<NavMeshAgent>();
-        m_Target = GameObject.FindGameObjectWithTag("Player").transform;
-        m_Rigidbody = GetComponent<Rigidbody>();
+        _mNavAgent = GetComponent<NavMeshAgent>();
+        _mTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        _mRigidbody = GetComponent<Rigidbody>();
     }
     
     /// <summary>
@@ -41,7 +41,7 @@ public class EnemyTankMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (m_Follow == false)
+        if (_mFollow == false)
         {
             return;
         }
@@ -55,9 +55,9 @@ public class EnemyTankMovement : MonoBehaviour
     /// <param name="other">The collider that enters the enemy tank's detection radius.</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            m_Follow = true;
+            _mFollow = true;
         }
     }
     
@@ -67,9 +67,9 @@ public class EnemyTankMovement : MonoBehaviour
     /// <param name="other">The collider that enters the enemy tank's detection radius.</param>
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            m_Follow = false; 
+            _mFollow = false; 
         }
     }
     
@@ -78,16 +78,16 @@ public class EnemyTankMovement : MonoBehaviour
     /// </summary>
     void MoveTowards()
     {
-        float distance = (m_Target.position - transform.position).magnitude;
+        float distance = (_mTarget.position - transform.position).magnitude;
         
-        if (distance > m_CloseDistance)
+        if (distance > mCloseDistance)
         {
-            m_NavAgent.SetDestination(m_Target.position);
-            m_NavAgent.isStopped = false;
+            _mNavAgent.SetDestination(_mTarget.position);
+            _mNavAgent.isStopped = false;
         }
         else
         {
-            m_NavAgent.isStopped = true;
+            _mNavAgent.isStopped = true;
         }
     }
     
@@ -96,9 +96,9 @@ public class EnemyTankMovement : MonoBehaviour
     /// </summary>
     void TurretLook()
     {
-        if (m_Turret != null)
+        if (mTurret != null)
         {
-            m_Turret.LookAt(m_Target);
+            mTurret.LookAt(_mTarget);
         }
     }
 }

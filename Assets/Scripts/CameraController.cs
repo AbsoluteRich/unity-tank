@@ -2,10 +2,10 @@
 
 public class CameraController : MonoBehaviour
 {
-    public Transform m_Target;
-    private Vector3 m_DesiredPosition;
-    public float m_DampTime;
-    private Vector3 m_MoveVelocity;
+    public Transform mTarget;
+    private Vector3 _mDesiredPosition;
+    public float mDampTime;
+    private Vector3 _mMoveVelocity;
     
     /// <summary>
     /// Moves the camera every frame.
@@ -20,13 +20,13 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        m_DesiredPosition = m_Target.position;
+        _mDesiredPosition = mTarget.position;
         Vector3.SmoothDamp(
             transform.position,
-            m_DesiredPosition,
-            ref m_MoveVelocity,
-            m_DampTime
+            _mDesiredPosition,
+            ref _mMoveVelocity,
+            mDampTime
         );
-        transform.position = m_DesiredPosition;
+        transform.position = _mDesiredPosition;
     }
 }

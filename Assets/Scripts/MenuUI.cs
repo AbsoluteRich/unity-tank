@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class MenuUI : MonoBehaviour
 {
     public GameObject exitMenu;
-    public Text m_HighScoreMsg;
-    public HighScores m_HighScores;
-    int[] m_Scores;
+    public Text mHighScoreMsg;
+    public HighScores mHighScores;
+    int[] _mScores;
     
     /// <summary>
-    /// Initalises the main menu by setting up the high score panel.
+    /// Initialises the main menu by setting up the high score panel.
     /// </summary>
     private void Start()
     {
@@ -51,13 +51,12 @@ public class MenuUI : MonoBehaviour
     /// </summary>
     private void DisplayHighScores()
     {
-        m_Scores = m_HighScores.GetScores();
+        _mScores = mHighScores.GetScores();
         string text = "";
-        for (int i = 0; i < m_Scores.Length; i++)
+        foreach (var seconds in _mScores)
         {
-            int seconds = m_Scores[i];
-            text += string.Format("{0:D2}:{1:D2}\n", (seconds / 60), (seconds % 60));
+            text += $"{(seconds / 60):D2}:{(seconds % 60):D2}\n";
         }
-        m_HighScoreMsg.text = text;
+        mHighScoreMsg.text = text;
     }
 }

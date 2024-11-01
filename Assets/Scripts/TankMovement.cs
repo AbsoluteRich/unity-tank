@@ -2,13 +2,13 @@
 
 public class TankMovement : MonoBehaviour
 {
-    Rigidbody m_Rigidbody;
-    float m_MovementInputValue;
-    float m_TurnInputValue;
-    public float m_Speed = 12f;
-    public float m_TurnSpeed = 180f;
-    public Transform m_TurretAsset;
-    private LayerMask m_LayerMask;
+    Rigidbody _mRigidbody;
+    float _mMovementInputValue;
+    float _mTurnInputValue;
+    public float mSpeed = 12f; 
+    public float mTurnSpeed = 180f;
+    public Transform mTurretAsset;
+    private LayerMask _mLayerMask;
     public int scrollSpeed;
     
     /// <summary>
@@ -16,8 +16,8 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        m_LayerMask = LayerMask.GetMask("Ground");
+        _mRigidbody = GetComponent<Rigidbody>();
+        _mLayerMask = LayerMask.GetMask("Ground");
     }
     
     /// <summary>
@@ -25,9 +25,9 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void OnEnable()
     {
-        m_Rigidbody.isKinematic = false;
-        m_MovementInputValue = 0f;
-        m_TurnInputValue = 0f;
+        _mRigidbody.isKinematic = false;
+        _mMovementInputValue = 0f;
+        _mTurnInputValue = 0f;
     }
     
     /// <summary>
@@ -35,22 +35,22 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void OnDisable()
     {
-        m_Rigidbody.isKinematic = true;
+        _mRigidbody.isKinematic = true;
     }
     
     /// <summary>
     /// Moves the tank when the player presses W and S or the up and down arrows.
     /// Rotates the tank treads when the player pressed A and D or the left and right arrows.
-    /// Changes the zoom of the camera when the player scrolls their mouse wneel.
+    /// Changes the zoom of the camera when the player scrolls their mouse wheel.
     /// </summary>
     void Update()
     {
-        if (GameManager.m_isPaused)
+        if (GameManager.MIsPaused)
         {
             return;
         }
-        m_MovementInputValue = Input.GetAxis("Vertical");  // Position on the up and down positions
-        m_TurnInputValue = Input.GetAxis("Horizontal");  // Position on the left and right positions
+        _mMovementInputValue = Input.GetAxis("Vertical");  // Position on the up and down positions
+        _mTurnInputValue = Input.GetAxis("Horizontal");  // Position on the left and right positions
         TurnTurret();
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         float cameraZoom = scroll * scrollSpeed;
@@ -74,8 +74,8 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void Move()
     {
-        Vector3 wantedVelocity = transform.forward * m_MovementInputValue * m_Speed;
-        m_Rigidbody.AddForce(wantedVelocity - m_Rigidbody.velocity, ForceMode.VelocityChange);
+        Vector3 wantedVelocity = transform.forward * (_mMovementInputValue * mSpeed);
+        _mRigidbody.AddForce(wantedVelocity - _mRigidbody.velocity, ForceMode.VelocityChange);
     }
 
     /// <summary>
@@ -83,9 +83,9 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     void Turn()
     {
-        float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
+        float turn = _mTurnInputValue * mTurnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-        m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+        _mRigidbody.MoveRotation(_mRigidbody.rotation * turnRotation);
     }
     
     /// <summary>
@@ -94,12 +94,11 @@ public class TankMovement : MonoBehaviour
     void TurnTurret()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, m_LayerMask))
+
+        if (Physics.Raycast(ray, out var hit, Mathf.Infinity, _mLayerMask))
         {
-            m_TurretAsset.LookAt(hit.point);
-            m_TurretAsset.eulerAngles = new Vector3(0, m_TurretAsset.eulerAngles.y, m_TurretAsset.eulerAngles.z);
+            mTurretAsset.LookAt(hit.point);
+            mTurretAsset.eulerAngles = new Vector3(0, mTurretAsset.eulerAngles.y, mTurretAsset.eulerAngles.z);
         }
     }
 }

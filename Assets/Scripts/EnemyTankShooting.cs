@@ -2,31 +2,31 @@ using UnityEngine;
 
 public class EnemyTankShooting : MonoBehaviour
 {
-    public Rigidbody m_ShellPrefab;
-    public Transform m_CannonTransform;
-    public float m_LaunchForce = 30f;
-    private bool m_CanShoot;
-    public float m_ShootDelay = 1f;
-    private float m_ShootTimer;
-    public AudioClip m_ShellFiredSfx;
-    public GameObject m_AudioSource;
-    public AudioClip m_ExplosionSfx;
+    public Rigidbody mShellPrefab;
+    public Transform mCannonTransform;
+    public float mLaunchForce = 30f;
+    private bool _mCanShoot;
+    public float mShootDelay = 1f;
+    private float _mShootTimer;
+    public AudioClip mShellFiredSfx;
+    public GameObject mAudioSource;
+    public AudioClip mExplosionSfx;
     
     /// <summary>
     /// Decreases the shooting cooldown by the time passed since the last frame. If the timer is less than 0, the enemy tank shoots.
     /// </summary>
     void Update()
     {
-        if (m_CanShoot == true)
+        if (_mCanShoot)
         {
-            m_ShootTimer -= Time.deltaTime;
+            _mShootTimer -= Time.deltaTime;
             
-            if (m_ShootTimer <= 0)
+            if (_mShootTimer <= 0)
             {
-                m_ShootTimer = m_ShootDelay;
-                AudioSource.PlayClipAtPoint(m_ShellFiredSfx, m_AudioSource.transform.position);
+                _mShootTimer = mShootDelay;
+                AudioSource.PlayClipAtPoint(mShellFiredSfx, mAudioSource.transform.position);
                 Fire();
-                AudioSource.PlayClipAtPoint(m_ExplosionSfx, m_AudioSource.transform.position);
+                AudioSource.PlayClipAtPoint(mExplosionSfx, mAudioSource.transform.position);
             }
         }
     }
@@ -36,8 +36,8 @@ public class EnemyTankShooting : MonoBehaviour
     /// </summary>
     void Fire()
     {
-        Rigidbody shellInstance = Instantiate(m_ShellPrefab, m_CannonTransform.position, m_CannonTransform.rotation);
-        shellInstance.velocity = m_LaunchForce * m_CannonTransform.forward;
+        Rigidbody shellInstance = Instantiate(mShellPrefab, mCannonTransform.position, mCannonTransform.rotation);
+        shellInstance.velocity = mLaunchForce * mCannonTransform.forward;
     }
     
     /// <summary>
@@ -45,7 +45,7 @@ public class EnemyTankShooting : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        m_CanShoot = false;
+        _mCanShoot = false;
     }
     
     /// <summary>
@@ -56,7 +56,7 @@ public class EnemyTankShooting : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            m_CanShoot = true;
+            _mCanShoot = true;
         }
     }
     
@@ -68,7 +68,7 @@ public class EnemyTankShooting : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            m_CanShoot = false;
+            _mCanShoot = false;
         }
     }
 }

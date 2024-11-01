@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class TankShooting : MonoBehaviour
 {
-    public Rigidbody m_ShellPrefab;
-    public Transform m_CannonTransform;
-    public float m_LaunchForce = 30f;
-    public AudioClip m_ShellFiredSfx;
-    public GameObject m_AudioSource;
-    public AudioClip m_ExplosionSfx;
+    public Rigidbody mShellPrefab;
+    public Transform mCannonTransform;
+    public float mLaunchForce = 30f;
+    public AudioClip mShellFiredSfx;
+    public GameObject mAudioSource;
+    public AudioClip mExplosionSfx;
     
     /// <summary>
     /// Fires a shell and plays the appropriate sound effects when the left mouse button is clicked.
@@ -16,9 +16,9 @@ public class TankShooting : MonoBehaviour
     {
         if (Input.GetButtonUp("Fire1"))
         {
-            AudioSource.PlayClipAtPoint(m_ShellFiredSfx, m_AudioSource.transform.position);
+            AudioSource.PlayClipAtPoint(mShellFiredSfx, mAudioSource.transform.position);
             Fire();
-            AudioSource.PlayClipAtPoint(m_ExplosionSfx, m_AudioSource.transform.position);
+            AudioSource.PlayClipAtPoint(mExplosionSfx, mAudioSource.transform.position);
         }
     }
     
@@ -27,7 +27,7 @@ public class TankShooting : MonoBehaviour
     /// </summary>
     void Fire()
     {
-        Rigidbody shellInstance = Instantiate(m_ShellPrefab, m_CannonTransform.position, m_CannonTransform.rotation);
-        shellInstance.velocity = m_LaunchForce * m_CannonTransform.forward;
+        Rigidbody shellInstance = Instantiate(mShellPrefab, mCannonTransform.position, mCannonTransform.rotation);
+        shellInstance.velocity = mLaunchForce * mCannonTransform.forward;
     }
 }

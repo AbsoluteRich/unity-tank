@@ -2,39 +2,38 @@ using UnityEngine;
 
 public class Shell : MonoBehaviour
 {
-    public float m_MaxLifeTime = 2f;
-    public ParticleSystem m_ExplosionParticles;
-    public float m_MaxDamage = 34f;
-    public float m_ExplosionRadius = 5;
-    public float m_ExplosionForce = 100f;
+    public float mMaxLifeTime = 2f;
+    public ParticleSystem mExplosionParticles;
+    public float mMaxDamage = 34f;
+    public float mExplosionRadius = 5;
+    public float mExplosionForce = 100f;
     
     /// <summary>
     /// Schedules the destruction of the shell after its lifetime is over.
     /// </summary>
     void Start()
     {
-        Destroy(gameObject, m_MaxLifeTime);   
+        Destroy(gameObject, mMaxLifeTime);   
     }
-    
+
     /// <summary>
     /// Explodes and applies damage to nearby objects when the shell hits one.
     /// </summary>
-    /// <param name="other">The collider that enters the shell's collider.</param>
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter()
     {
-        Collider[] objectsInRange = Physics.OverlapSphere(transform.position, m_ExplosionRadius);
-        for (int i = 0; i < objectsInRange.Length; i++)
+        Collider[] objectsInRange = Physics.OverlapSphere(transform.position, mExplosionRadius);
+        foreach (var t in objectsInRange)
         {
-            Rigidbody targetRb = objectsInRange[i].GetComponent<Rigidbody>();
+            Rigidbody targetRb = t.GetComponent<Rigidbody>();
             if (targetRb != null)
             {
                 Damage(targetRb);
             }
         }
-        m_ExplosionParticles.transform.parent = null;  // Detaches the explosion from the shell, which is going to be destroyed
-        m_ExplosionParticles.Play();
+        mExplosionParticles.transform.parent = null;  // Detaches the explosion from the shell, which is going to be destroyed
+        mExplosionParticles.Play();
         
-        Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.main.duration);
+        Destroy(mExplosionParticles.gameObject, mExplosionParticles.main.duration);
         Destroy(gameObject);
     }
     
@@ -44,7 +43,7 @@ public class Shell : MonoBehaviour
     /// <param name="targetRigidbody">The target's Rigidbody.</param>
     void Damage(Rigidbody targetRigidbody)
     {
-        targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
+        targetRigidbody.AddExplosionForce(mExplosionForce, transform.position, mExplosionRadius);
         TankHealth targetHealth = targetRigidbody.transform.GetComponent<TankHealth>();
         if (targetHealth != null)
         {
@@ -62,8 +61,8 @@ public class Shell : MonoBehaviour
     {
         Vector3 explosionToTarget = targetPosition - transform.position;
         float explosionDistance = explosionToTarget.magnitude;
-        float relativeDistance = (m_ExplosionRadius - explosionDistance) / m_ExplosionForce;
-        float damage = relativeDistance * m_MaxDamage;
+        float relativeDistance = (mExplosionRadius - explosionDistance) / mExplosionForce;
+        float damage = relativeDistance * mMaxDamage;
         damage = Mathf.Max(0f, damage);
 
         return damage;

@@ -4,8 +4,8 @@ using System.IO;
 public class HighScores : MonoBehaviour
 {
     public string scoreFile = "scores.txt";  // The filename where high scores will be stored
-    string currentDirectory;  // The path to the directory containing the high score file
-    int[] scores = new int[10];  // Stores the loaded high scores
+    string _currentDirectory;  // The path to the directory containing the high score file
+    int[] _scores = new int[10];  // Stores the loaded high scores
     
     /// <summary>
     /// Initialises the high score file directory to dataPath.
@@ -13,43 +13,42 @@ public class HighScores : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        currentDirectory = Application.dataPath;
+        _currentDirectory = Application.dataPath;
     }
     
     /// <summary>
     /// Loads scores from the high score file, adding them to the high score array.
     /// </summary>
-    public void LoadFile()
+    private void LoadFile()
     {
-        bool fileExists = File.Exists(Path.Combine(currentDirectory, scoreFile));
+        bool fileExists = File.Exists(Path.Combine(_currentDirectory, scoreFile));
         
         if (fileExists)
         {
             Debug.Log("File found!");
             
             // Recreates the high scores array to make sure it's empty
-            scores = new int[scores.Length];
+            _scores = new int[_scores.Length];
             
             // Reads each line of the file until the end or the score array is full
-            StreamReader fileReader = new StreamReader(Path.Combine(currentDirectory, scoreFile));
+            StreamReader fileReader = new StreamReader(Path.Combine(_currentDirectory, scoreFile));
             int scoreCount = 0;
 
-            while (fileReader.Peek() != 0 && scoreCount < scores.Length)
+            while (fileReader.Peek() != 0 && scoreCount < _scores.Length)
             {
                 string fileLine = fileReader.ReadLine();
-                int readScore = -1;  // The score that has been read
-                bool didParse = int.TryParse(fileLine, out readScore);
+                bool didParse = int.TryParse(fileLine, out var readScore);
 
                 if (didParse)
                 {
                     // If the stored score was successfully converted, add it to the array...
-                    scores[scoreCount] = readScore;
+                    _scores[scoreCount] = readScore;
                 }
                 else
                 {
                     // ...otherwise, use a default score
                     Debug.Log($"Invalid line in scores file at {scoreCount}, using default value.");
-                    scores[scoreCount] = 0;
+                    _scores[scoreCount] = 0;
                 }
 
                 scoreCount++;
@@ -66,13 +65,13 @@ public class HighScores : MonoBehaviour
     /// <summary>
     /// Writes the contents of the high score array to the high score file.
     /// </summary>
-    public void SaveFile()
+    private void SaveFile()
     {
-        StreamWriter fileWriter = new StreamWriter(Path.Combine(currentDirectory, scoreFile));
+        StreamWriter fileWriter = new StreamWriter(Path.Combine(_currentDirectory, scoreFile));
 
-        for (int i = 0; i < scores.Length; i++)
+        foreach (var t in _scores)
         {
-            fileWriter.WriteLine(scores[i]);
+            fileWriter.WriteLine(t);
         }
 
         fileWriter.Close();
@@ -85,7 +84,7 @@ public class HighScores : MonoBehaviour
     /// <param name="newScores">An array of scores.</param>
     public void SetScore(int[] newScores)
     {
-        scores = newScores;
+        _scores = newScores;
         SaveFile();
     }
     
@@ -96,6 +95,6 @@ public class HighScores : MonoBehaviour
     public int[] GetScores()
     {
         LoadFile();
-        return scores;
+        return _scores;
     }
 }
