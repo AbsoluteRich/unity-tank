@@ -21,7 +21,7 @@ public class HighScores : MonoBehaviour
     /// </summary>
     public void LoadFile()
     {
-        bool fileExists = File.Exists(currentDirectory + "\\" + scoreFile);
+        bool fileExists = File.Exists(Path.Combine(currentDirectory, scoreFile));
         
         if (fileExists)
         {
@@ -31,7 +31,7 @@ public class HighScores : MonoBehaviour
             scores = new int[scores.Length];
             
             // Reads each line of the file until the end or the score array is full
-            StreamReader fileReader = new StreamReader(currentDirectory + "\\" + scoreFile);
+            StreamReader fileReader = new StreamReader(Path.Combine(currentDirectory, scoreFile));
             int scoreCount = 0;
 
             while (fileReader.Peek() != 0 && scoreCount < scores.Length)
@@ -68,7 +68,7 @@ public class HighScores : MonoBehaviour
     /// </summary>
     public void SaveFile()
     {
-        StreamWriter fileWriter = new StreamWriter(currentDirectory + "\\" + scoreFile);
+        StreamWriter fileWriter = new StreamWriter(Path.Combine(currentDirectory, scoreFile));
 
         for (int i = 0; i < scores.Length; i++)
         {
